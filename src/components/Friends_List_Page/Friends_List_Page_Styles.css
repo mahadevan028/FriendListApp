@@ -1,0 +1,16 @@
+#header{
+    font-size:25px;
+    color: #676a6c;
+}
+
+.center-input{
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+.card-shadow{
+    box-shadow: 0px 0px 2px rgb(188 188 188 / 55%);
+    /* background-color: #ececec */
+}
+
