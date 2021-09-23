@@ -17,13 +17,11 @@
     outline: none;
 }
 
-.custom-input .custom-control::placeholder{
-  /* padding: 10px; */
-}
+
 
 .custom-input i{
  padding:10px;
  flex-grow:0;
-  color: #8c8b8b
+ color: #8c8b8b
 }
 

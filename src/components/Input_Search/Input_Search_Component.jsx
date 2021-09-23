@@ -4,12 +4,12 @@ import './Input_Search_Styles.css';
 function Input_Search_Component({searchFriendCallback}) {
     return (
       <div>
-        <div className="container">
+        <div className="container col-lg-8">
           <div className="row">
             <div className="col-lg-12">
                 <i className="fa fa-search"></i>
                 <input
-                className="col-sm-12 form-control"
+                  className="col-sm-12 form-control"
                   type="text"
                   placeholder="Search Friends"
                   onChange={(e) => searchFriendCallback(e)}
