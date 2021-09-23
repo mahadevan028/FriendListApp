@@ -7,7 +7,7 @@ function Input_Search_Component({searchFriendCallback}) {
         <div className="container col-lg-8">
           <div className="row">
             <div className="col-lg-12">
-                <i className="fa fa-search"></i>
+                <i title="Search" className="fa fa-search"></i>
                 <input
                   className="col-sm-12 form-control"
                   type="text"

@@ -19,11 +19,12 @@ function Friends_List_Component({ list, deleteFriend, favouriteFriend }) {
                 <div className="m-10" onClick={() => favouriteFriend(item.key)}>
                   {item.isFavorite ? (
                     <i
+                      title="Favourite"
                       className="fa fa-star favourites-yellow"
                       aria-hidden="true"
                     ></i>
                   ) : (
-                    <i className="fa fa-star-o" aria-hidden="true"></i>
+                    <i title="Favourite" className="fa fa-star-o" aria-hidden="true"></i>
                   )}
                 </div>
               </div>
@@ -39,6 +40,7 @@ function Friends_List_Component({ list, deleteFriend, favouriteFriend }) {
                   <i
                     className="fa fa-trash icon-visibility"
                     aria-hidden="true"
+                    title="Delete"
                   ></i>
                 </div>
               </div>

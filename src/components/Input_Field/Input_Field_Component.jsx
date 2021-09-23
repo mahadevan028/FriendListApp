@@ -15,7 +15,7 @@ function Input_Field_Component({input,onInputCallback, onChangeCallback}) {
             aria-describedby="enter-friend-name"
             onKeyDown={(e)=> onInputCallback(e)}
           />
-          <i className="fa fa-plus"></i>
+          <i title="Add" className="fa fa-plus"></i>
         </div>
       </div>
     );
