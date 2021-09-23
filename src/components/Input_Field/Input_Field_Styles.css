@@ -1,3 +1,29 @@
 .input-field{
-    margin : 20px
+    margin : 0px;
 }
+
+.custom-input{
+    display: flex;
+    /* margin: 0px !important; */
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.custom-input .custom-control{
+    /* display: flex; */
+    padding-left:20px;
+    flex-grow: 1;
+    /* margin: 0px !important; */
+    border:none;
+    outline: none;
+}
+
+.custom-input .custom-control::placeholder{
+  /* padding: 10px; */
+}
+
+.custom-input i{
+ padding:10px;
+ flex-grow:0;
+  color: #8c8b8b
+}
+

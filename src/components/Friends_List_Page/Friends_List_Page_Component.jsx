@@ -77,10 +77,10 @@ function Friends_List_Page_Component() {
 
     return (
       <div className="center-input">
-        <div className="card card-shadow" style={{ width: "35rem",maxHeight: "35rem" }}>
-          <div className="card-header container text-start d-flex">
-            <div id="header" className="col-xs-4 d-inline-block">Friends List</div>
-            <div className="col-sm-4 d-inline-block">
+        <div className="card card-shadow">
+          <div className="card-header container text-start" style={{display:'flex'}}>
+            <div id="header" style={{flexGrow:'1'}}>Friends List</div>
+            <div style={{flexGrow:'1'}}>
               <InputSearch searchFriendCallback = {searchFriendCallback}/></div>
             </div>
           <div className="card-body">
@@ -94,7 +94,6 @@ function Friends_List_Page_Component() {
           </div>
           
         </div>
-   
       </div>
     );
 }

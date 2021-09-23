@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Input_Search_Styles.css';
 
 function Input_Search_Component({searchFriendCallback}) {
     return (
