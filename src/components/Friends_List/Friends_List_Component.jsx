@@ -58,7 +58,7 @@ function Friends_List_Component({ list, deleteFriend, favouriteFriend, selectedP
           </div>
         );
       }else {
-        return <div>No Friends in the list</div>;
+        return <div className="padding-top-10">No Friends in the list</div>;
       }
 }
 

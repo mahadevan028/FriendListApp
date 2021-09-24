@@ -61,3 +61,7 @@
 .list-row:hover .action {
   display:block;
 }
+
+.padding-top-10{
+  padding-top: 10px;
+}

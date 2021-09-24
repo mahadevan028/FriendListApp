@@ -94,6 +94,14 @@ function Friends_List_Page_Component() {
           }
         })
       );
+         setFriendListDataFinal((prevProps) =>
+         prevProps.map((item) => {
+           if (item.key === keyValue) {
+             return { ...item, isFavorite: !item.isFavorite };
+           }else{
+             return item
+           }
+          }))
     };
 
     const handleCloseCallback = () => {
@@ -140,7 +148,7 @@ function Friends_List_Page_Component() {
     }
 
     return (
-      <div className="center-input">
+      <div className="center-input padding-top-10">
         <div className="card card-shadow">
           <div
             className="card-header container text-start"
