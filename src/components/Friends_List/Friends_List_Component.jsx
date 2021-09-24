@@ -8,12 +8,12 @@ const sortArray = (list) => {
     });
     return list;
 }
-function Friends_List_Component({ list, deleteFriend, favouriteFriend }) {
+function Friends_List_Component({ list, deleteFriend, favouriteFriend, selectedPage }) {
     
       if (!!list.length) {
         return (
-          <div className="lean-scroll">
-            {sortArray(list).map((item) => {
+          <div className="lean-scroll height-276">
+            {sortArray(list).slice((selectedPage -1) * 4  , (selectedPage -1) * 4+4).map((item) => {
               return (
                 <div key={item.key} className="list-row ">
                   <div className="status">

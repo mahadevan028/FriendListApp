@@ -1,0 +1,13 @@
+.pagination{
+    float: right;
+    margin: 16px;
+}
+
+.selected{
+    background-color: #e6e3e3 !important;
+}
+
+.disabled {
+    pointer-events:none; 
+    opacity:0.6;         
+}

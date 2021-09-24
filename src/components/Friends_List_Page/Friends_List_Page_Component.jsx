@@ -5,6 +5,7 @@ import FriendsList from './../Friends_List/Friends_List_Component.jsx';
 import DeleteConfirmationModal from './../Delete_Friend_Confirmation/Delete_Friend_Confirmation_Component.jsx';
 import InputSearch from './../Input_Search/Input_Search_Component.jsx';
 import { ToastContainer, toast } from 'react-toastify';
+import Pagination from './../Pagination/Pagination_Component.jsx';
 const initialData = [
     {key:1, name:'Rahul Gupta', isFavorite:false},
     {key:2,name:'Shivangi Sharma', isFavorite:true},
@@ -24,6 +25,7 @@ function Friends_List_Page_Component() {
     const [info, setInfo] = useState({})
     const [selectedPage, setSelectedPage] = useState(1);
     const [pageNumbers, setPageNumbers] = useState([0]);
+
 
     const onChangeCallback = (event) => {
       setInputValue(event.target.value)
@@ -69,7 +71,24 @@ function Friends_List_Page_Component() {
       setFriends((prevProps) =>
         prevProps.map((item) => {
           if (item.key === keyValue) {
-            return { ...item, isFavorite: !item.isFavorite };
+            const obj =  { ...item, isFavorite: !item.isFavorite };
+            if(obj.isFavorite===true){
+              toast("Added to Favourites", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                type:'success',
+                theme:'dark'});
+            }else{
+              toast("Removed from Favourites", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                type:'success',
+                theme:'dark'});
+            }
+            return obj;
+            
           } else {
             return item;
           }
@@ -116,6 +135,10 @@ function Friends_List_Page_Component() {
       setSelectedPage(prevProps => prevProps - 1)
     }
 
+    const onSetPageCallback = (item) => {
+          setSelectedPage(item);
+    }
+
     return (
       <div className="center-input">
         <div className="card card-shadow">
@@ -142,6 +165,7 @@ function Friends_List_Page_Component() {
               list={friends}
               deleteFriend={deleteFriendHandler}
               favouriteFriend={favouriteFriendHandler}
+              selectedPage={selectedPage}
             />
             {showModal ? (
               <DeleteConfirmationModal
@@ -152,31 +176,13 @@ function Friends_List_Page_Component() {
               />
             ) : null}
           </div>
-          <nav aria-label="Page navigation">
-            <ul className="pagination">
-              <li className="page-item">
-                <a  onClick={()=> onPreviousCallback}className="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              {pageNumbers.map((item,index) => {
-               return( <li key={index} className="page-item">
-                {item+1 === selectedPage ? 
-                <a href="#"  className="page-link selected">
-                  {item+1}
-                </a> :   <a  href="#" className="page-link">
-                  {item+1}
-                </a>
-                }
-              </li>)
-              })}
-              <li className="page-item">
-                <a onClick={() => onNextCallback} className="page-link" href="#"  aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <Pagination
+            onPreviousCallback={onPreviousCallback}
+            pageNumbers={pageNumbers}
+            onSetPageCallback={onSetPageCallback}
+            selectedPage={selectedPage}
+            onNextCallback={onNextCallback}
+          />
         </div>
 
         <ToastContainer />

@@ -18,6 +18,10 @@
  border-bottom: 1px solid #e2e2e2;
 }
 
+.height-276{
+  height: 276px;
+}
+
 .list-row:hover{
   background-color: #e0f7fa
 }
@@ -44,6 +48,10 @@
   padding:10px;
   cursor:pointer;
   color: #8c8b8b;
+}
+
+.action:hover{
+  color: hsl(0, 1%, 26%);
 }
 
 .list-row .action {
