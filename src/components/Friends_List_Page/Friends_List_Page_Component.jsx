@@ -129,6 +129,7 @@ function Friends_List_Page_Component() {
         )
       );
       setPageNumbers(evaluatePageNumbers(friends.length))
+      setSelectedPage(1)
       }else {
         setFriends(friendListDataFinal)
         setPageNumbers(evaluatePageNumbers(friendListDataFinal.length))
