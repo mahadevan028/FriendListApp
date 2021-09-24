@@ -22,5 +22,20 @@
 
 .card{
   margin:10px;  
+  width:500px;
+}
+
+.card-header.container{
+    display:flex;
+    align-items:center;
+}
+
+.pagination{
+    float: right;
+    margin: 16px;
+}
+
+.selected{
+    background-color: #e6e3e3 !important;
 }
 

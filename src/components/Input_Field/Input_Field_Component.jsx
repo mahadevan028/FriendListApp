@@ -8,7 +8,7 @@ function Input_Field_Component({input,onInputCallback, onChangeCallback}) {
           <input
             type="text"
             className="custom-control"
-            placeholder="Enter Friend Name to Add"
+            placeholder="Type your friend name to add and press enter"
             aria-label="Name"
             value={input|| ""}
             onChange={(e) => onChangeCallback(e)}

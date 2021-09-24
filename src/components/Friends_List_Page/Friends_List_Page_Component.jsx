@@ -4,17 +4,26 @@ import InputFieldComponent from './../Input_Field/Input_Field_Component.jsx';
 import FriendsList from './../Friends_List/Friends_List_Component.jsx';
 import DeleteConfirmationModal from './../Delete_Friend_Confirmation/Delete_Friend_Confirmation_Component.jsx';
 import InputSearch from './../Input_Search/Input_Search_Component.jsx';
+import { ToastContainer, toast } from 'react-toastify';
 const initialData = [
     {key:1, name:'Rahul Gupta', isFavorite:false},
     {key:2,name:'Shivangi Sharma', isFavorite:true},
     {key:3,name:'Akash Singh', isFavorite:false}]
 
+
+const evaluatePageNumbers = (arrayListLength) => {
+  return [...Array((arrayListLength)%4===0? (arrayListLength)/4 : Math.floor(1+(arrayListLength)/4)).keys()]
+}    
+
 function Friends_List_Page_Component() {
     const [friends, setFriends] = useState(initialData)
+    const [friendListDataFinal, setFriendListDataFinal] = useState(initialData) 
     const [showModal, setShowModal] = useState(false)
     const [key,setKey] = useState(0)
     const [inputValue,setInputValue] = useState("")
     const [info, setInfo] = useState({})
+    const [selectedPage, setSelectedPage] = useState(1);
+    const [pageNumbers, setPageNumbers] = useState([0]);
 
     const onChangeCallback = (event) => {
       setInputValue(event.target.value)
@@ -29,9 +38,24 @@ function Friends_List_Page_Component() {
             obj['isFavorite'] = false
             setInputValue("")
             setFriends(prevProps => [...prevProps,obj])   
+            setFriendListDataFinal(prevProps => [...prevProps,obj])
+            
+            toast("Friend Added Successfully", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: true,
+              type:'success',
+              theme:'dark'});
+
             }else{
-                alert('invalid input')
-            }        
+              toast("Invalid Input", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                type:'error',
+                theme:'dark'});
+            } 
+            setTimeout(() => setPageNumbers(evaluatePageNumbers(friends.length+1)))       
         }
     }
 
@@ -59,41 +83,103 @@ function Friends_List_Page_Component() {
 
     const handleDeleteCallback = () => {
         setFriends(prevProps => prevProps.filter(item => item.key !== key))
+        setFriendListDataFinal(prevProps => prevProps.filter(item => item.key !== key));
         setShowModal(false);
+        setPageNumbers(evaluatePageNumbers(friends.length-1))
+        toast("Friend Deleted Successfully", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          type:'success',
+          theme:'dark'});
     }
 
     const searchFriendCallback = (event) => {
-      const tempData = friends;
       if(!!event.target.value){
       setFriends((prevProps) =>
         prevProps.filter((item) =>
-          item.name.toLowerCase().includes(event.target.value)
+          item.name.toLowerCase().includes(event.target.value.toLowerCase())
         )
       );
+      setPageNumbers(evaluatePageNumbers(friends.length))
       }else {
-        setFriends(tempData)
-      }
+        setFriends(friendListDataFinal)
+        setPageNumbers(evaluatePageNumbers(friendListDataFinal.length))
+      }      
     };
+    
+    const onNextCallback = () => {
+      setSelectedPage(prevProps => prevProps + 1)
+    }
+    
+    const onPreviousCallback = () => {
+      setSelectedPage(prevProps => prevProps - 1)
+    }
 
     return (
       <div className="center-input">
         <div className="card card-shadow">
-          <div className="card-header container text-start" style={{display:'flex'}}>
-            <div id="header" style={{flexGrow:'1'}}>Friends List</div>
-            <div style={{flexGrow:'1'}}>
-              <InputSearch searchFriendCallback = {searchFriendCallback}/></div>
+          <div
+            className="card-header container text-start"
+            style={{ display: "flex" }}
+          >
+            <div id="header" style={{ flexGrow: "1" }}>
+              Friends List
             </div>
+            <div style={{ flexGrow: "0" }}>
+              <InputSearch searchFriendCallback={searchFriendCallback} />
+            </div>
+          </div>
           <div className="card-body">
-          <div className="col-lg-12">
-            <InputFieldComponent input = {inputValue} onInputCallback={onNameInputCallback} onChangeCallback = {onChangeCallback}/>
+            <div className="col-lg-12">
+              <InputFieldComponent
+                input={inputValue}
+                onInputCallback={onNameInputCallback}
+                onChangeCallback={onChangeCallback}
+              />
+            </div>
+            <FriendsList
+              list={friends}
+              deleteFriend={deleteFriendHandler}
+              favouriteFriend={favouriteFriendHandler}
+            />
+            {showModal ? (
+              <DeleteConfirmationModal
+                show={showModal}
+                friendInfo={info}
+                handleClose={handleCloseCallback}
+                handleDelete={handleDeleteCallback}
+              />
+            ) : null}
           </div>
-          <FriendsList list = {friends} deleteFriend = {deleteFriendHandler} favouriteFriend = {favouriteFriendHandler}/>
-          {
-          showModal ? <DeleteConfirmationModal  show={showModal}  friendInfo = {info} handleClose={handleCloseCallback} handleDelete={handleDeleteCallback}/> : null
-        } 
-          </div>
-          
+          <nav aria-label="Page navigation">
+            <ul className="pagination">
+              <li className="page-item">
+                <a  onClick={()=> onPreviousCallback}className="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              {pageNumbers.map((item,index) => {
+               return( <li key={index} className="page-item">
+                {item+1 === selectedPage ? 
+                <a href="#"  className="page-link selected">
+                  {item+1}
+                </a> :   <a  href="#" className="page-link">
+                  {item+1}
+                </a>
+                }
+              </li>)
+              })}
+              <li className="page-item">
+                <a onClick={() => onNextCallback} className="page-link" href="#"  aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
+
+        <ToastContainer />
       </div>
     );
 }
